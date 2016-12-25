@@ -22,8 +22,9 @@ class room{
   room* getSouth();
   room* getNorth();
   void printItem();
-  void dropItem();
-  void grabItem();
+  void dropItem(item* item);
+  void grabItem(item* item);
+  bool checkItem(item* item);
 private:
   char* name;
   char* description;

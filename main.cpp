@@ -63,7 +63,9 @@ int main(){
     //displays exits
     current->printExits();
     cout<<"Where would you like to go? NORTH, WEST, EAST or SOUTH?"<<endl;
-    //shows items in room
+    
+    //prints items
+    cout<<"items in this room:"<<endl;
     current->printItem();
     cin>>input;
     //does all the player movment between rooms
@@ -113,10 +115,22 @@ int main(){
     else if(strcmp(input,"DROP")==0){
       cout<<"What item would you like to drop?"<<endl;
       cin>>input;
+      for(vector<item*>::iterator it = inventory.begin(); it != inventory.end(); it++){
+	if(strcmp((*it)->getName(),input)==0){
+	  current->dropItem((*it));
+	  *it = inventory.back();
+	  inventory.pop_back();
+	  break;
+	}
+      }
     }
     //deals with player inventory
     else if(strcmp(input,"GRAB")==0){
-      
+      cout<<"What item would you like to grab?"<<endl;
+      cin>>input;
+      for(vector<item*>::iterator it = inventory.begin();it != inventory.end();it++){
+	
+      }
     }
     else{
       cout<<"WEST, EAST, NORTH, SOUTH, QUIT, DROP, GRAB and INVENTORY are the only valid commands"<<endl;

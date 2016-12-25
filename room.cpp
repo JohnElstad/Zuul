@@ -60,11 +60,17 @@ void room::printExits(){
   }
 }
 void room::printItem(){
-
+  for(vector<item*>::iterator it = roomItems.begin();it != roomItems.end();it++){
+    cout<<(*it)->getName()<<endl;
+  }
 }
-void room::dropItem(){
-
+//adds the item to the room vector
+void room::dropItem(item* item){
+  roomItems.push_back(item);
 }
-void room::grabItem(){
-
+void room::grabItem(item* item){
+  
+}
+bool checkItem(item* item){
+  
 }
