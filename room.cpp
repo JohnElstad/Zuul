@@ -68,9 +68,27 @@ void room::printItem(){
 void room::dropItem(item* item){
   roomItems.push_back(item);
 }
-void room::grabItem(item* item){
-  
+void room::grabItem(const char* itemName,vector<item*>* inventory){
+  for(vector<item*>::iterator it = roomItems.begin(); it != roomItems.end();it++){
+    if(strcmp((*it)->getName(),itemName)==0){
+      roomItems.erase(it);
+      inventory->push_back(*it);
+      cout<<"You have added"<<itemName<<" to your inventory"<<endl;     
+      break;
+    }
+  }
 }
-bool checkItem(item* item){
-  
+bool room::checkItem(char* itemName){
+  for(vector<item*>::iterator it = roomItems.begin(); it != roomItems.end();it++){
+    if(strcmp((*it)->getName(),itemName)==0){
+      return true;
+      break;
+    }
+    else{
+      return false;
+    } 
+  }
+}
+void room::setItem(item* item){
+  roomItems.push_back(item);
 }

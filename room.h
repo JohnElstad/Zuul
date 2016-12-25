@@ -21,10 +21,11 @@ class room{
   room* getEast();
   room* getSouth();
   room* getNorth();
+  void setItem(item* item);
   void printItem();
   void dropItem(item* item);
-  void grabItem(item* item);
-  bool checkItem(item* item);
+  void grabItem(const char* itemName,vector<item*>* inventory);
+  bool checkItem(char* itemName);
 private:
   char* name;
   char* description;

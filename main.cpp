@@ -11,7 +11,7 @@ void noRoom(){
 }
 
 int main(){
-  cout<<"Welcome to Zuul"<<endl;
+  cout<<"Welcome to Zuul. Get to the closet to win. Items do nothing. Have fun lmao"<<endl;
   bool running = true;
   vector<item*> inventory;
   //initializes rooms
@@ -38,13 +38,19 @@ int main(){
   item* soap = new item("Soap");
   item* flea = new item("Flea");
   inventory.push_back(flea);
+  lawn->setItem(hat);
+  kitchen->setItem(sword);
+  pub->setItem(soap);
+  patio->setItem(dog);
+  store->setItem(cat);
+  
   //sets exits
   home->setExits(street,upstairs,living,kitchen);
   street->setExits(store,pub,home,lab);
   store->setExits(NULL,NULL,street,NULL);
   lab->setExits(NULL,street,NULL,NULL);
   pub->setExits(NULL,NULL,NULL,street);
-  kitchen->setExits(NULL,home,NULL,kitchen);
+  kitchen->setExits(NULL,home,NULL,patio);
   patio->setExits(NULL,kitchen,NULL,lawn);
   lawn->setExits(NULL,patio,NULL,NULL);
   living->setExits(home,NULL,NULL,gameRoom);
@@ -58,16 +64,23 @@ int main(){
   room* current = home; 
   char input[50];
   while(running){
+    
+
+    cout<<"*****************************************"<<endl;
     cout<<"You are currently in:"<<current->getName()<<endl;
     cout<<"Your exits options are:"<<endl;
     //displays exits
     current->printExits();
     cout<<"Where would you like to go? NORTH, WEST, EAST or SOUTH?"<<endl;
-    
-    //prints items
-    cout<<"items in this room:"<<endl;
+
+    cout<<"Items in this room:"<<endl;
     current->printItem();
     cin>>input;
+    if(current==closet){
+      cout<<"YOU WIN! YOU MADE IT TO THE CLOSET"<<endl;
+      running=false;
+    }
+    
     //does all the player movment between rooms
     if(strcmp(input, "NORTH")==0){
       if((current->getExits(1))!=NULL){
@@ -128,8 +141,11 @@ int main(){
     else if(strcmp(input,"GRAB")==0){
       cout<<"What item would you like to grab?"<<endl;
       cin>>input;
-      for(vector<item*>::iterator it = inventory.begin();it != inventory.end();it++){
-	
+      if(current->checkItem(input)==true){	
+	current->grabItem(input,&inventory);
+      }
+      else{
+	cout<<"Nothing meets this description"<<endl;
       }
     }
     else{
